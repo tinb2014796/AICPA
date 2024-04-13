@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 const cartScheme =  mongoose.Schema({
+    idUser: {
+        type: String,
+        require: [true, "id not the found"],
+    },
     productName: {
         type: String,
         require: [true, "Hãy nhập tên sản phẩm"],

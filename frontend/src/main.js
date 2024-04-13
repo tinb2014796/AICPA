@@ -9,8 +9,6 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-
-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
@@ -19,7 +17,8 @@ import { faTwitter, faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 
 library.add(fas,faTwitter,faFontAwesome)
 
-
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 
@@ -27,5 +26,4 @@ const vuetify = createVuetify({
   components,
   directives,
 })
-
 createApp(App).use(vuetify).use(route).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

@@ -1,5 +1,5 @@
 <template>
-    <div class=" bg-dark" >
+    <div  >
       <h1 class="subheading grey--text">Products</h1>
       <v-container>
         <v-layout row wrap class="mb-4">
@@ -18,32 +18,39 @@
              <v-icon left small>person</v-icon>
               <span class="caption text-lowercase">By name</span>
           </v-btn>
+          <v-btn small outlined color="green" @click="addproduct()" class="mr-2" dark v-on="on">
+             <v-icon left small>folder</v-icon>
+              <span class="caption text">Add product</span>
+          </v-btn>
         </template>
           <span>Sort person</span>
         </v-tooltip>
         </v-layout>
-        
-        <v-row>
-          <v-col v-for="product in products" :key="product.title" class="mb-1">
-           <v-card>
-            <v-layout :class="`pa-3 product ${product.status}`">
-                <v-flex>
-                    <img src="/img1.jpg" height="100" width="100">
-                    <div class="caption grey--text">Product title</div>
-                    <div >{{product.title}}</div>
-                </v-flex>
-                <v-flex >
-                    <div class="caption grey--text">Person</div>
-                    <div >{{product.person}}</div>
-                </v-flex>
-                <v-flex >
-                    <div class="caption grey--text">Due By</div>
-                    <div >{{product.due}}</div>
-                </v-flex>
-              </v-layout> 
-           </v-card>
-          </v-col>  
-        </v-row>
+        <router-link :to = "{
+            name: 'productdetail'
+          }">
+            <v-row>
+              <v-col v-for="product in products" :key="product.title" class="mb-1">
+              <v-card>
+                <v-layout :class="`pa-3 product ${product.status}`">
+                    <v-flex>
+                        <img src="/img1.jpg" height="100" width="100">
+                        <div class="caption grey--text">Product title</div>
+                        <div >{{product.title}}</div>
+                    </v-flex>
+                    <v-flex >
+                        <div class="caption grey--text">Person</div>
+                        <div >{{product.person}}</div>
+                    </v-flex>
+                    <v-flex >
+                        <div class="caption grey--text">Due By</div>
+                        <div >{{product.due}}</div>
+                    </v-flex>
+                  </v-layout> 
+              </v-card>
+              </v-col>  
+            </v-row>
+        </router-link>
       </v-container>
     </div>
 </template>
@@ -52,7 +59,7 @@
   
 
   export default {
-    name: 'projects',
+    name: 'products',
     components: {
      
     },
@@ -67,6 +74,9 @@
     methods: {
       sortBy(prop){
         this.product.sort((a,b) => a[prop] < b[prop] ? -1:1)
+      },
+      addproduct(){
+        this.$router.push({name: 'add'})
       }
     }
   }

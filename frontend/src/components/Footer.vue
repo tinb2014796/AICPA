@@ -15,7 +15,7 @@
       >
   
         <v-card-text class="py-2 white--text text-center">
-          {{ new Date().getFullYear() }} — <strong>AI CPA</strong>
+          {{ new Date().getFullYear() }} — <strong>AI CPA Liên hệ 012356789</strong>
         </v-card-text>
       </v-card>
     </v-footer>

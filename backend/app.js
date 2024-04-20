@@ -8,6 +8,7 @@ const cartRoute = require("./app/routes/CartRoutes");
 
 app.use(cors());
 app.use(express.json());
+
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/cart",cartRoute);

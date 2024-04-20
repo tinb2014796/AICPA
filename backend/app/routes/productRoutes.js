@@ -3,13 +3,20 @@ const product = require("../controllers/productController.js");
 
 
 const router = express.Router();
-
-router.route("/")
+router.route("/view")
     .get(product.findAll)
-    .post(product.create)
 
 router.route("/:id")
+    .get(product.findOne)
     .put(product.updateProduct)
+router.route("/:type")
+    .get(product.findOne)
+
+router.route("/add")
+    .post(product.create)
+
+router.route("/:name")
+  
     .delete(product.delete)
 
 module.exports = router;

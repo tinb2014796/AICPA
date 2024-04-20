@@ -6,14 +6,11 @@ const jwt = require("jsonwebtoken")
 // const ContactService = require("../services/contact.service");
 
 // Create and Save a new Contact
-exports.get = async (req, res, next) => {
-    res.send('choaaa')
-}
 exports.create = async (req, res, next) => {
     console.log(req.body)
-    const {username, password } = req.body;
+    const {firstname, lastname, username, password, address, phone } = req.body;
     if(!username || !password){
-        throw new ApiError("All field are madatory");
+        return res.send("All field are madatory");
     }
 
     const userAvailable = await userModel.findOne({username});
@@ -26,8 +23,12 @@ exports.create = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = userModel.create({
+        firstname,
+        lastname,
         username,
         password : hashedPassword,
+        address,
+        phone
     });
     console.log(`User created ${user}`);
 
@@ -40,6 +41,7 @@ exports.create = async (req, res, next) => {
 }
 
 exports.loginUser = async (req, res, next) => {
+    console.log(req.body);
     const {username, password} = req.body;
 
     if(!username || !password){
@@ -64,8 +66,11 @@ exports.loginUser = async (req, res, next) => {
         res.status(200).json({accessToken});
     } else {
         res.status(401)
-        throw new ApiError("email or password")
+        return res.send("email or password")
     }
+}
+exports.findAll = async (req, res, next) => {
+    res.send("hehehehe")
 }
 
 exports.currentUser = async(req, res) => {

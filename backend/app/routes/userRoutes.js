@@ -7,12 +7,11 @@ const validateToken = require("../middleware/validateTokenHandle.js")
 const router = express.Router();
 
 router.route("/signup")
-    .get(user.get)
     .post(user.create)
 
 router.route("/login")
-    .get(user.get)
     .post(user.loginUser)
+    .get(user.findAll)
 
 router.get('/current', function (req, res, next) {
     let token;

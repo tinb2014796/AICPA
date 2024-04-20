@@ -15,44 +15,50 @@
           </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-menu offset-y>
-      <div>
-        <router-link class="text-light" :to = "{
-            name: 'cart'
-          }">
-          <v-btn color="blue">
-          <v-icon class="left" left> <font-awesome-icon :icon="['fas', 'cart-shopping']" /> </v-icon>
-              <span> Giỏ hàng </span>
-          </v-btn>
-        </router-link>
-     </div>
-     <template v-slot:activator="{ on }">
-       <router-link class="text-light" :to = "{
-        name: 'dashboard'
-       }">
-        <v-btn
-         text
-         v-on="on"
-       >
-         <v-icon class="left" left> <font-awesome-icon :icon="['fas', 'house']" /> </v-icon>
-           <span> Trang chu </span>
-       </v-btn>
-       </router-link>
-     </template>
-     <v-list flat>
-       <v-list-item v-for="link in links"  :key="link.text" router :to="link.route" active-class="border">
-       </v-list-item>
-     </v-list>
-           </v-menu>
+            <template v-slot:activator="{ on }">
+              <router-link class="text-light" :to = "{
+                name: 'cart'
+              }">
+                <v-btn text v-on="on">
+                  <v-icon class="left" left> <font-awesome-icon :icon="['fas', 'shopping-cart']" /> </v-icon>
+                    <span> Giỏ hàng</span>
+                </v-btn>
+              </router-link>
+            </template>
+              <v-list flat>
+                <v-list-item v-for="link in links"  :key="link.text" router :to="link.route" active-class="border">
+                </v-list-item>
+              </v-list>
+          </v-menu>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <router-link class="text-light" :to = "{
+              name: 'dashboard'
+            }">
+              <v-btn
+              text
+              v-on="on"
+            >
+              <v-icon class="left" left> <font-awesome-icon :icon="['fas', 'house']" /> </v-icon>
+                <span> Trang chủ</span>
+            </v-btn>
+            </router-link>
+          </template>
+            <v-list flat>
+              <v-list-item v-for="link in links"  :key="link.text" router :to="link.route" active-class="border">
+              </v-list-item>
+            </v-list>
+        </v-menu>
            <v-btn text>
                <span>Log out</span>
                <v-icon class="right" right> <font-awesome-icon :icon="['fas', 'right-to-bracket']" /></v-icon>
             </v-btn>
       </v-app-bar>
      <v-navigation-drawer  v-model="drawer" dark app class="red darken-4">
-         <v-layout column align-center>
+         <v-layout column align-center >
               <v-flex class="avt"> 
                    <v-avatar size="100" >
-                           <img height="90" width="90" src="/img.jpg" alt="">
+                        <img height="90" width="90" src="D:\Nienluan\Project\frontend\src\assets\img.jpg" alt="">
                    </v-avatar>
                    <p class="white--text subheading mt-1 text-center">AI CPA</p>
               </v-flex>
@@ -60,13 +66,15 @@
                <Popup />
               </v-flex>
          </v-layout>
-         <v-list flat>
-             <v-list-item v-for="link in links"  :key="link.text" router :to="link.route" active-class="border">
+         <v-list flat >
+             <v-list-item v-for="link in links"  :key="link.text" router active-class="border">
                  <v-list-item-action>
                     <v-icon >{{link.icon}}</v-icon>
                  </v-list-item-action>
                  <v-list-item-content >
-                     <v-list-item-title >{{link.text}}</v-list-item-title>
+                     <router-link :to="link.route" >
+                        <v-list-item-title class="detail">{{link.text}}</v-list-item-title>
+                      </router-link>
                  </v-list-item-content>
              </v-list-item>
          </v-list>
@@ -83,7 +91,6 @@ export default {
          { text:'My Products', route: '/products'},
          { text:'Team', route: '/team'},
          { text: 'Login', route: '/login'},
-         { text: 'Productdetail', route: '/productdetail'}
      ]
     
    }),
@@ -96,7 +103,7 @@ export default {
 </script>
 <style scoped>
 .border {
- border-left: 4px solid #0ba518;
+  border-left: 4px solid #0ba518;
 }
 .avt{
   margin-left: 75px;
@@ -107,6 +114,11 @@ export default {
 }
 .right{
   margin-left: 7px;
+}
+
+.detail{
+  color: red; 
+  font-weight: bold;
 }
 </style>
 

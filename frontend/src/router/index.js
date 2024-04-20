@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Dashboard from '../views/Dashboard.vue'
-import Products from '@/views/Products.vue';
 import Team from '@/views/Team.vue';
-
-
-
+import Pay from '@/views/Customer/Pay.vue';
+import Chart from '@/views/Admin/Chart.vue';
+import Products from '@/views/Admin/Products.vue';
+import AddProducts from '@/views/Admin/AddProducts.vue';
+import ProductCus from '@/views/Customer/Products.vue';
+import AdminDetail from '@/views/Admin/AdminDetail.vue';
+import Edit from '@/views/Admin/EditProduct.vue'
 const routes = [
   {
     path: '/',
@@ -15,7 +18,8 @@ const routes = [
   {
     path: '/products',
     name: 'products',
-    component: Products
+    component: Products,
+    props: true,
   },
   {
     path: '/team',
@@ -25,12 +29,13 @@ const routes = [
   {
     path: '/add',
     name: 'add',
-    component: () => import("@/views/AddProducts.vue")
+    component: AddProducts
   },
   {
-    path: '/productdetail',
+    path: '/productdetail/:id',
     name: 'productdetail',
-    component: () => import("@/views/Customer/Productdetail.vue")
+    component: () => import("@/views/Customer/Productdetail.vue"),
+    props: true,
   },
   {
     path: '/cart',
@@ -46,6 +51,34 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: () => import("@/views/Customer/Signup.vue")
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    component: Pay,
+  },
+  {
+    path: '/chart',
+    name: 'chart',
+    component: Chart,
+  },
+  {
+    path: '/product-cus',
+    name: 'product-cus',
+    component: ProductCus,
+    props: true,
+  },
+  {
+    path: '/admindetail/:id',
+    name: 'admindetail',
+    component: AdminDetail,
+    props: true,
+  },
+  {
+    path: '/edit/:id',
+    name: 'edit',
+    component: Edit,
+    props: true,
   }
 ]
 

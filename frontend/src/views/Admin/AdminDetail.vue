@@ -1,7 +1,7 @@
-<template>
+<template >
     <div >
         <v-container v-if="product" style="width: 70%;" class="mt-15">
-            <v-card>
+            <v-card class="">
                 <v-layout :class="`pa-3 product`">
                     <v-row>
                         <v-col cols = "12" sm="5">
@@ -24,9 +24,15 @@
                                     <p class="mota-text" v-html="product.mota"></p>
                                 </div>
                             </v-flex>
-                            <button class="btn btn-primary mt-4" @click="addToCart">
-                                Mua ngay
-                            </button>
+                            <router-link 
+                                :to = "{
+                                name: 'edit',
+                                params: {id: product._id}
+                                }">
+                                <button class="btn btn-primary mt-4" @click="Edit">
+                                    Sửa thông tin sản phẩm
+                                </button>
+                            </router-link>
                         </v-col>
                     </v-row>
                 </v-layout> 
@@ -39,7 +45,7 @@
 import productService from '@/services/product.service';
 
 export default {
-    name: 'Productdetail',
+    name: 'admindetail',
 
     components: {
      
@@ -56,8 +62,8 @@ export default {
     },
 
     methods: {
-      async addToCart(){
-        this.$router.push({name: 'cart'})
+      async Edit(){
+        this.$router.push({name: 'edit/:id'})
       },
       
       async getProduct(){

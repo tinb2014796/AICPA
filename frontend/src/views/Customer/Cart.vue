@@ -39,7 +39,7 @@
             </v-list>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn color="primary" @click="checkout">Thanh toán</v-btn>
+              <v-btn color="primary" @click="pay()">Thanh toán</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -48,6 +48,7 @@
   </template>
   
   <script>
+
   export default {
     data() {
       return {
@@ -70,8 +71,8 @@
           this.cartItems[index].quantity--;
         }
       },
-      checkout() {
-        // Xử lý thanh toán ở đây
+      pay(){
+        this.$router.push({name: 'pay'});
       }
     }
   };
@@ -79,8 +80,8 @@
 <style>
 .trash{
     margin-left: 10px;
-    color: rgba(31, 23, 16, 0.814);
-    background-color: red;
+    color: rgba(4, 4, 4, 0.971);
+    background-color: rgb(255, 255, 255);
     text-align: center;
 }
 .plus{

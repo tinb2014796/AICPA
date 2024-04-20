@@ -1,7 +1,7 @@
 <template>
             <v-container col="12" sm="">
-                    <Form>
-                        <v-row align="center" justify="center">
+                    <Form  @submit = "submit" >
+                        <v-row align="center" justify="center" >
                             <v-col col="12" sm="4">
                                 <h4 align="center" justify="center" class="mt-12">Bạn đã có tài khoản
                                     <br> Hãy đăng nhập để mua hàng 
@@ -12,11 +12,13 @@
                                         type="email"
                                         class="mt-14"
                                         label = Email
+                                        v-model="user.username"
                                     />
                                     <ErrorMessage name="name" class="error-feedback" />
                                 </div>
                                 <div justify="center">
                                     <v-text-field
+                                        v-model="user.password"
                                         :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                                         :rules="[rules.required, rules.min]"
                                         :type="show2 ? 'text' : 'password'"
@@ -29,7 +31,7 @@
                                     <ErrorMessage name="email" class="error-feedback" />
                                 </div>
                                 <div align="center"justify="center" cols="12" sm="6" class="mt-4">
-                                    <v-btn color="blue" dark block tile>Đăng nhập</v-btn>
+                                    <v-btn color="blue" type= "submit" dark block tile>Đăng nhập</v-btn>
                                 </div>
                                 <h5 align="center"justify="center" class="mt-4">
                                     Nếu bạn chưa có tài khoản có thể tạo tài khoản
@@ -44,7 +46,7 @@
 </template>
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
-import Signup from "./Signup.vue";
+import userService from "@/services/user.service";
 export default {
     components: {
         Form,
@@ -54,18 +56,25 @@ export default {
     emits: ["submit:contact", "delete:contact"],
     
     methods: {
-        submitContact() {
-            this.$emit("submit:contact", this.contactLocal);
-        },
-        deleteContact() {
-            this.$emit("delete:contact", this.contactLocal.id);
-        },
         formatNames(files) {
         return files.length === 1 ? files[0].name : `${files.length} files selected`
         },
         signup(){
         this.$router.push({name: 'signup'})
-        }
+        },
+        submit(){
+            console.log(this.user);
+            this.logintest(this.user);
+        },
+        async logintest(data) {
+                try {
+                const token = await userService.login(data);
+                confirm('Đăng nhập thành công');
+                console.log(token);
+                } catch (error) {
+                    console.log(error);
+                }
+        },
     },
     data() {
       return {
@@ -78,9 +87,19 @@ export default {
           required: value => !!value || 'Required.',
           min: v => v.length >= 8 || 'Min 8 characters',
           emailMatch: () => (`The email and password you entered don't match`),
-            },
+        },
+
+        user: {
+            username:'',
+            password:'',
         }
-    },
+        };
+    }
 };
 
 </script>
+<style>
+.login{
+    border: solid 2px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
     <v-container col="12" sm="">
-            <Form @submit = "submit">
+            <Form @submit = "submit" >
                 <v-row align="center" justify="center">
                     <v-col col="12" sm="4">
                         <h4 align="center" justify="center" class="mt-12">
@@ -9,11 +9,11 @@
                         <v-row>
                             <v-col cols="12" sm="6">
                                 <v-text-field
-                                v-model="user.fisrtname"
+                                v-model="user.firstname"
                                 name="firstname"
                                 type="text"
                                 class="mt-14"
-                                label = Firstname
+                                label = "Firstname"
                             />
                             </v-col>
                             <v-col cols="12" sm="6">
@@ -22,7 +22,7 @@
                                 name="lastname"
                                 type="text"
                                 class="mt-14"
-                                label = Lastname
+                                label = "Lastname"
                             />
                             </v-col>
                         </v-row>
@@ -32,7 +32,7 @@
                                 name="username"
                                 type="email"
                                 class="mt-2"
-                                label = Email
+                                label = "Email"
                             />
                             <ErrorMessage name="name" class="error-feedback" />
                         </div>
@@ -52,7 +52,7 @@
                                 name="address"
                                 type="text"
                                 class="mt-2"
-                                label = Address
+                                label = "Address"
                             />
                         </div>
                         <div>
@@ -62,7 +62,7 @@
                                 type="tel"
                                 :counter ="10"
                                 class="mt-2"
-                                label = Phone
+                                label = "Phone"
                             />
                         </div>
                         <div align="center"justify="center" cols="12" sm="6" class="mt-4">
@@ -72,7 +72,7 @@
                             Nếu bạn đã có tài khoản hãy đăng nhập 
                         </h4>
                         <div align="center"justify="center" cols="12" sm="6" class="mt-4">
-                                <v-btn @click="logintest()" color="blue" dark block tile>Đăng nhập</v-btn>
+                                <v-btn @click="login()" color="blue" dark block tile>Đăng nhập</v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -80,20 +80,10 @@
     </v-container>
 </template>
 <script>
+
+import userService from "@/services/user.service";
 import { Form, Field, ErrorMessage } from "vee-validate";
     export default {
-        data() {
-            return {
-                user: {
-                    fisrtname : '',
-                    lastname: '',
-                    address:'',
-                    phone : '',
-                    username: '',
-                    password: '',
-                }
-            }
-        },
         components: {
         Form,
         Field,
@@ -102,18 +92,34 @@ import { Form, Field, ErrorMessage } from "vee-validate";
         emits: ["submit:contact", "delete:contact"],
 
         methods: {
-            submit() {
+            async submit() {
                 console.log(this.user)
-            },
-            deleteContact() {
-                this.$emit("delete:contact", this.contactLocal.id);
+                try {
+                await userService.create(this.user);
+                confirm('Đăng ký thành công');
+                this.$router.push({name: 'login'});
+                } catch (error) {
+                    console.log(error);
+                }
             },
             formatNames(files) {
             return files.length === 1 ? files[0].name : `${files.length} files selected`
             },
-            logintest(){
-                this.$router.push({name: 'logintest'})
+            login(){
+                this.$router.push({name: 'login'})
             }
+        },
+        data() {
+            return {
+                user: {
+                    firstname : '',
+                    lastname: '',
+                    address:'',
+                    phone : '',
+                    username: '',
+                    password: '',
+                }
+            };
         },
     };
 
